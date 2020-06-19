@@ -11,6 +11,7 @@ Game interaction
 var gameChar_x;
 var gameChar_y;
 var floorPos_y;
+var collectable;
 
 var isLeft;
 var isRight;
@@ -22,6 +23,13 @@ function setup() {
   floorPos_y = (height * 3) / 4;
   gameChar_x = width / 2;
   gameChar_y = floorPos_y;
+
+  collectable = {
+    x_pos: 300,
+    y_pos: floorPos_y,
+    size: 48,
+    isFound: false
+  };
 
   isLeft = false;
   isRight = false;
@@ -40,7 +48,37 @@ function draw() {
 
   //draw the canyon
 
+  //collectable
+  if (dist(gameChar_x, gameChar_y, collectable.x_pos, collectable.y_pos) < 20) {
+    collectable.isFound = true;
+  }
+  if (collectable.isFound == false) {
+    fill(186, 51, 51);
+    ellipse(
+      collectable.x_pos + 14,
+      collectable.y_pos - 20,
+      collectable.size - 19,
+      collectable.size - 11
+    );
+    ellipse(
+      collectable.x_pos + 30,
+      collectable.y_pos - 20,
+      collectable.size - 19,
+      collectable.size - 11
+    );
+    stroke(88, 70, 70);
+    strokeWeight(3);
+
+    line(
+      collectable.x_pos + 30,
+      collectable.y_pos - 42,
+      collectable.x_pos + 22,
+      collectable.y_pos - 32
+    );
+  }
+
   //the game character
+  strokeWeight(1);
   if (isLeft && isFalling) {
     // add your jumping-left code
     //hair
@@ -278,10 +316,10 @@ function draw() {
   ///////////INTERACTION CODE//////////
   //Put conditional statements to move the game character below here
   if (isLeft == true) {
-    gameChar_x -= 5;
+    gameChar_x -= 3;
   }
   if (isRight == true) {
-    gameChar_x += 5;
+    gameChar_x += 3;
   }
   if (isPlummeting == true && gameChar_y === floorPos_y) {
     gameChar_y = floorPos_y - 100;

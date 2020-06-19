@@ -12,6 +12,7 @@ var gameChar_x;
 var gameChar_y;
 var floorPos_y;
 var collectable;
+var canyon;
 
 var isLeft;
 var isRight;
@@ -31,6 +32,12 @@ function setup() {
     isFound: false
   };
 
+  canyon = {
+    x_pos: 600,
+    y_pos: floorPos_y,
+    width: 100
+  };
+
   isLeft = false;
   isRight = false;
   isFalling = false;
@@ -47,6 +54,34 @@ function draw() {
   rect(0, floorPos_y, width, height - floorPos_y); //draw some green ground
 
   //draw the canyon
+
+  fill(100, 155, 255);
+  rect(canyon.x_pos, canyon.y_pos, canyon.width, floorPos_y);
+  fill(168, 167, 186);
+  triangle(
+    canyon.x_pos + canyon.width / 6,
+    canyon.y_pos + 40,
+    canyon.x_pos,
+    height,
+    canyon.x_pos + canyon.width / 3,
+    height
+  );
+  triangle(
+    canyon.x_pos + canyon.width / 2,
+    canyon.y_pos + 40,
+    canyon.x_pos + canyon.width / 3,
+    height,
+    canyon.x_pos + (canyon.width / 3) * 2,
+    height
+  );
+  triangle(
+    canyon.x_pos + (canyon.width / 6) * 5,
+    canyon.y_pos + 40,
+    canyon.x_pos + (canyon.width / 3) * 2,
+    height,
+    canyon.x_pos + (canyon.width / 3) * 3,
+    height
+  );
 
   //collectable
   if (dist(gameChar_x, gameChar_y, collectable.x_pos, collectable.y_pos) < 20) {

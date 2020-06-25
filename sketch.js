@@ -359,7 +359,8 @@ function draw() {
   if (isPlummeting == true && gameChar_y === floorPos_y) {
     gameChar_y = floorPos_y - 100;
   }
-  if (gameChar_y < floorPos_y) {
+  //if (gameChar_y < floorPos_y) {
+  if (gameChar_x > canyon.x_pos && gameChar_x <= canyon.x_pos + canyon.width) {  
     gameChar_y += 5;
     isFalling = true;
   } else {

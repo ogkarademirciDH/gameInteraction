@@ -84,7 +84,10 @@ function draw() {
   );
 
   //collectable
-  if (dist(gameChar_x, gameChar_y, collectable.x_pos, collectable.y_pos) < 20) {
+  if (
+    dist(gameChar_x, gameChar_y, collectable.x_pos + 10, collectable.y_pos) <=
+    20
+  ) {
     collectable.isFound = true;
   }
   if (collectable.isFound == false) {
@@ -351,13 +354,17 @@ function draw() {
   ///////////INTERACTION CODE//////////
   //Put conditional statements to move the game character below here
   if (isLeft == true) {
-    gameChar_x -= 3;
+    gameChar_x -= 2;
   }
   if (isRight == true) {
-    gameChar_x += 3;
+    gameChar_x += 2;
   }
   if (isPlummeting == true && gameChar_y === floorPos_y) {
-    gameChar_y = floorPos_y - 100;
+    gameChar_y = floorPos_y - 150;
+  }
+  if (gameChar_x > canyon.x_pos && gameChar_x <= canyon.x_pos + canyon.width) {
+    gameChar_y += 5;
+    isPlummeting = true;
   }
   if (gameChar_y < floorPos_y) {
     gameChar_y += 5;
@@ -365,6 +372,12 @@ function draw() {
   } else {
     isFalling = false;
   }
+  // if (isRight == true && isPlummeting == true) {
+  //   gameChar_x = canyon.x_pos + canyon.width;
+  // }
+  // if (isLeft == true && isPlummeting == true) {
+  //   gameChar_x = canyon.x_pos;
+  // }
 }
 
 function keyPressed() {

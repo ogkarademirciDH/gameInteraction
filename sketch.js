@@ -359,25 +359,33 @@ function draw() {
   if (isRight == true) {
     gameChar_x += 2;
   }
-  if (isPlummeting == true && gameChar_y === floorPos_y) {
-    gameChar_y = floorPos_y - 150;
+  if (isPlummeting == true && gameChar_y == floorPos_y) {
+    gameChar_y -= 5;
+    gameChar_y = floorPos_y - 300;
   }
-  if (gameChar_x > canyon.x_pos && gameChar_x <= canyon.x_pos + canyon.width) {
-    gameChar_y += 5;
-    isPlummeting = true;
-  }
+
   if (gameChar_y < floorPos_y) {
     gameChar_y += 5;
     isFalling = true;
   } else {
     isFalling = false;
   }
-  // if (isRight == true && isPlummeting == true) {
-  //   gameChar_x = canyon.x_pos + canyon.width;
-  // }
-  // if (isLeft == true && isPlummeting == true) {
-  //   gameChar_x = canyon.x_pos;
-  // }
+  if (
+    gameChar_x > canyon.x_pos &&
+    gameChar_x < canyon.x_pos + canyon.width &&
+    gameChar_y >= floorPos_y
+  ) {
+    gameChar_y += 5;
+    isFalling = true;
+  }
+  if (gameChar_y > floorPos_y && isPlummeting == true && isRight == true) {
+    gameChar_x = gameChar_x + canyon.width;
+    gameChar_x = gameChar_x;
+  }
+  if (gameChar_y > floorPos_y && isPlummeting == true && isLeft == true) {
+    gameChar_x = gameChar_x - canyon.width;
+    gameChar_x = gameChar_x;
+  }
 }
 
 function keyPressed() {

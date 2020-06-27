@@ -363,11 +363,13 @@ function draw() {
     gameChar_y -= 5;
     gameChar_y = floorPos_y - 300;
   }
+  if (isFalling == true) {
+    gameChar_y += 5;
+  }
 
   if (gameChar_y < floorPos_y) {
-    gameChar_y += 5;
     isFalling = true;
-  } else {
+  } else if (gameChar_y == floorPos_y) {
     isFalling = false;
   }
   if (
@@ -375,7 +377,6 @@ function draw() {
     gameChar_x < canyon.x_pos + canyon.width &&
     gameChar_y >= floorPos_y
   ) {
-    gameChar_y += 5;
     isFalling = true;
   }
   if (gameChar_y > floorPos_y && isPlummeting == true && isRight == true) {

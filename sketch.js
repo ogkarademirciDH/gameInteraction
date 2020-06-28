@@ -18,6 +18,7 @@ var isLeft;
 var isRight;
 var isFalling;
 var isPlummeting;
+var shouldNotBeJumping = false;
 
 function setup() {
   createCanvas(1024, 576);
@@ -388,7 +389,6 @@ function draw() {
     gameChar_x = gameChar_x;
   }
 }
-
 function keyPressed() {
   // if statements to control the animation of the character when
   // keys are pressed.
@@ -396,18 +396,43 @@ function keyPressed() {
   //open up the console to see how these work
   console.log("keyPressed: " + key);
   console.log("keyPressed: " + keyCode);
+  
   if (keyCode == 37) {
     console.log("left arrow");
     isLeft = true;
+    shouldNotBeJumping = isSheOverTheCanyon(gameChar_x,gameChar_y);
+    console.log('shouldNotBeJumping: ' + shouldNotBeJumping);
+    if (shouldNotBeJumping){
+      isPlummeting = false;
+      isFalling = true;
+    }
   } else if (keyCode == 39) {
     console.log("right arrow");
     isRight = true;
+    shouldNotBeJumping = isSheOverTheCanyon(gameChar_x,gameChar_y);
+    console.log('shouldNotBeJumping: ' + shouldNotBeJumping);
+    if (shouldNotBeJumping){
+      isPlummeting = false;
+      isFalling = true;
+    }
   }
   if (keyCode == 32) {
-    console.log("space bar");
+    console.log("space bar" + gameChar_y);
     isPlummeting = true;
     isFalling = false;
+    shouldNotBeJumping = isSheOverTheCanyon(gameChar_x,gameChar_y);
+    console.log('shouldNotBeJumping: ' + shouldNotBeJumping);
+    if (shouldNotBeJumping){
+      isPlummeting = false;
+      isFalling = true;
+    }
+
   }
+}
+
+isSheOverTheCanyon = (x,y) => {
+  if (x > canyon.x_pos && x < canyon.x_pos + canyon.width ) return true;
+  else return false;
 }
 
 function keyReleased() {
